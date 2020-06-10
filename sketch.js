@@ -1,6 +1,6 @@
 // fortunep5
 
-let game_title = "* fortunep5 * c2.1"
+let game_title = "* fortunep5 * c3.0"
 let [canvas_W, canvas_H] = [400, 400];
 let fortune_X = canvas_W / 2;
 let fortune_Y = canvas_H / 4;
@@ -15,12 +15,19 @@ let is_touch = 0;
 let fortune_arr_org = ["大凶", "凶", "小吉", "中吉", "吉", "大吉"];
 let fortune_tier = [5, 3, 1, 2, 4, 6];
 let tier_probability = [5, 15, 40, 28, 10, 2];
+let fortune_3D_arr = [];
+for (let i=0; i<fortune_arr_org.length; i++) {
+  fortune_3D_arr[i] = [fortune_arr_org[i], fortune_tier[i] ,tier_probability[i]];
+}
 let fortune = " ";
 let fortune_arr = [];
+let tier_disp = " ";
+let prob_disp = " ";
+let rand = 0;
 
 for (let i=0; i<tier_probability.length; i++) {
   for (let j=0; j<tier_probability[i]; j++) {
-    fortune_arr.push(fortune_arr_org[i]);
+    fortune_arr.push(fortune_3D_arr[i]);
   }
 }
 
@@ -71,7 +78,10 @@ function mousePressed() {
   }
 }
 function fortune_telling() {
-  fortune = fortune_arr[Math.floor(Math.random() * fortune_arr.length)];
+  rand = Math.floor(Math.random() * fortune_arr.length);
+  fortune = fortune_arr[rand][0];
+  tier_disp = fortune_arr[rand][1];
+  prob_disp = fortune_arr[rand][2];
 }
 
 function set_fortune(fortune_R, fortune_G, fortune_B, fortune_X, fortune_Y, fortune_W, fortune_H, now) {
@@ -107,8 +117,17 @@ function set_fortune(fortune_R, fortune_G, fortune_B, fortune_X, fortune_Y, fort
     noStroke();
     fill(10);
     text(fortune, fortune_X, fortune_Y * 2);
-  }
 
+    fill(fortune_R + 90, fortune_G + 90, fortune_B + 90);
+    rect(fortune_X, fortune_Y * 3, fortune_W, fortune_H, 4);
+    
+    textSize(10);
+    textFont("Crimson Text");
+    textAlign(CENTER, CENTER);
+    noStroke();
+    fill(10);
+    text("tier : " + tier_disp + " , tier probability : " + prob_disp, fortune_X, fortune_Y * 3);
+  }
   pop();
 }
 
