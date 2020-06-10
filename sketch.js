@@ -1,6 +1,6 @@
 // fortunep5
 
-let game_title = "* fortunep5 * c1.1"
+let game_title = "* fortunep5 * c2.1"
 let [canvas_W, canvas_H] = [400, 400];
 let fortune_X = canvas_W / 2;
 let fortune_Y = canvas_H / 4;
@@ -12,10 +12,17 @@ let background_RGB = [230, 230 ,230];
 let on_RGB = [250, 250, 250, 150];
 let off_RGB = [50, 50, 50, 150];
 let is_touch = 0;
-let fortune_arr = ["大凶", "凶", "小吉", "中吉", "吉", "大吉"];
+let fortune_arr_org = ["大凶", "凶", "小吉", "中吉", "吉", "大吉"];
 let fortune_tier = [5, 3, 1, 2, 4, 6];
 let tier_probability = [5, 15, 40, 28, 10, 2];
 let fortune = " ";
+let fortune_arr = [];
+
+for (let i=0; i<tier_probability.length; i++) {
+  for (let j=0; j<tier_probability[i]; j++) {
+    fortune_arr.push(fortune_arr_org[i]);
+  }
+}
 
 function setup() {
   window.addEventListener("touchstart", function (event) { event.preventDefault(); }, { passive: false });
